@@ -13,7 +13,6 @@ st.title("📈 Model Performance")
 def load_data():
     return pd.read_csv("dataset.csv", sep=";")
 
-@st.cache_resource
 def load_model():
     with open("model.pkl", "rb") as f:
         return pickle.load(f)
