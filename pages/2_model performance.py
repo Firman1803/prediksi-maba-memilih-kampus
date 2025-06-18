@@ -1,11 +1,11 @@
 import streamlit as st
 import pandas as pd
-import pickle
+import joblib
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Judul halaman
+st.set_page_config(page_title="Model Performance", layout="centered")
 st.title("📈 Model Performance")
 
 # Load dataset dan model
@@ -13,22 +13,29 @@ st.title("📈 Model Performance")
 def load_data():
     return pd.read_csv("dataset.csv", sep=";")
 
+@st.cache_resource
 def load_model():
-    with open("model.pkl", "rb") as f:
-        return pickle.load(f)
+    return joblib.load("model/model.pkl")
 
-df = load_data()
-model = load_model()
+try:
+    df = load_data()
+    model = load_model()
+except Exception as e:
+    st.error(f"❌ Gagal memuat data atau model: {e}")
+    st.stop()
 
-# Preprocessing dataset
+# Praproses
 df.columns = ['Akreditasi', 'Uang_Kuliah', 'Fasilitas', 'Pelayanan', 'Lokasi', 'Pilih_PTN']
 df['Pilih_PTN'] = df['Pilih_PTN'].map({'Ya': 1, 'Tidak': 0})
-
 X = df[['Akreditasi', 'Uang_Kuliah', 'Fasilitas', 'Pelayanan', 'Lokasi']]
 y = df['Pilih_PTN']
 
 # Prediksi
-y_pred = model.predict(X)
+try:
+    y_pred = model.predict(X)
+except Exception as e:
+    st.error(f"❌ Gagal melakukan prediksi: {e}")
+    st.stop()
 
 # Akurasi
 st.subheader("🎯 Akurasi Model")
@@ -61,6 +68,9 @@ lokasi = st.slider("Lokasi", 1, 10, 9)
 if st.button("Prediksi"):
     input_data = pd.DataFrame([[akreditasi, uang_kuliah, fasilitas, pelayanan, lokasi]],
                               columns=['Akreditasi', 'Uang_Kuliah', 'Fasilitas', 'Pelayanan', 'Lokasi'])
-    prediction = model.predict(input_data)[0]
-    hasil = "Memilih PTN Ini ✅" if prediction == 1 else "Tidak Memilih PTN Ini ❌"
-    st.success(f"Hasil Prediksi: {hasil}")
+    try:
+        prediction = model.predict(input_data)[0]
+        hasil = "Memilih PTN Ini ✅" if prediction == 1 else "Tidak Memilih PTN Ini ❌"
+        st.success(f"Hasil Prediksi: {hasil}")
+    except Exception as e:
+        st.error(f"Gagal memproses prediksi: {e}")
