@@ -1,26 +1,25 @@
-MHS;Akreditasi;Uang Kuliah;Fasilitas;Pelayanan;Lokasi;Minat
-MHS 1;Baik;Terjangkau;Sangat Baik;Baik;Terjangkau;Yes
-MHS 2;Cukup;Murah;Cukup;Cukup;Terjangkau;Yes
-MHS 3;Cukup;Terjangkau;Cukup;Cukup;Jauh;No
-MHS 4;Sangat Baik;Murah;Sangat Baik;Sangat Baik;Terjangkau;Yes
-MHS 5;Baik;Murah;Memadai;Baik;Jauh;Yes
-MHS 6;Sangat Baik;Terjangkau;Memadai;Baik;Terjangkau;Yes
-MHS 7;Cukup;Terjangkau;Cukup;Cukup;Jauh;No
-MHS 8;Baik;Terjangkau;Cukup;Baik;Dekat;Yes
-MHS 9;Cukup;Mahal;Cukup;Cukup;Terjangkau;No
-MHS 10;Cukup;Terjangkau;Cukup;Cukup;Jauh;No
-MHS 11;Baik;Murah;Sangat Baik;Sangat Baik;Dekat;Yes
-MHS 12;Cukup;Terjangkau;Sangat Baik;Cukup;Jauh;Yes
-MHS 13;Cukup;Terjangkau;Memadai;Baik;Terjangkau;Yes
-MHS 14;Cukup;Mahal;Memadai;Baik;Dekat;No
-MHS 15;Baik;Terjangkau;Memadai;Cukup;Terjangkau;Yes
-MHS 16;Baik;Mahal;Cukup;Baik;Terjangkau;No
-MHS 17;Baik;Terjangkau;Sangat Baik;Baik;Dekat;Yes
-MHS 18;Cukup;Murah;Cukup;Cukup;Terjangkau;Yes
-MHS 19;Cukup;Terjangkau;Cukup;Cukup;Jauh;No
-MHS 20;Cukup;Mahal;Cukup;Cukup;Terjangkau;No
-MHS 21;Sangat Baik;Murah;Sangat Baik;Baik;Terjangkau;Yes
-MHS 22;Baik;Terjangkau;Cukup;Sangat Baik;Jauh;Yes
-MHS 23;Baik;Terjangkau;Cukup;Cukup;Dekat;Yes
-MHS 24;Sangat Baik;Murah;Sangat Baik;Sangat Baik;Terjangkau;Yes
-MHS 25;Cukup;Terjangkau;Cukup;Cukup;Terjangkau;No
+Baik;Terjangkau;Sangat Baik;Baik;Terjangkau;Ya
+Cukup;Murah;Cukup;Cukup;Terjangkau;Ya
+Cukup;Terjangkau;Cukup;Cukup;Jauh;Tidak
+Sangat Baik;Murah;Sangat Baik;Sangat Baik;Terjangkau;Ya
+Baik;Murah;Memadai;Baik;Jauh;Ya
+Sangat Baik;Terjangkau;Memadai;Baik;Terjangkau;Ya
+Cukup;Terjangkau;Cukup;Cukup;Jauh;Tidak
+Baik;Terjangkau;Cukup;Baik;Dekat;Ya
+Cukup;Mahal;Cukup;Cukup;Terjangkau;Tidak
+Cukup;Terjangkau;Cukup;Cukup;Jauh;Tidak
+Baik;Murah;Sangat Baik;Sangat Baik;Dekat;Ya
+Cukup;Terjangkau;Sangat Baik;Cukup;Jauh;Ya
+Cukup;Terjangkau;Memadai;Baik;Terjangkau;Ya
+Cukup;Mahal;Memadai;Baik;Dekat;Tidak
+Baik;Terjangkau;Memadai;Cukup;Terjangkau;Ya
+Baik;Mahal;Cukup;Baik;Terjangkau;Tidak
+Baik;Terjangkau;Sangat Baik;Baik;Dekat;Ya
+Cukup;Murah;Cukup;Cukup;Terjangkau;Ya
+Cukup;Terjangkau;Cukup;Cukup;Jauh;Tidak
+Cukup;Mahal;Cukup;Cukup;Terjangkau;Tidak
+Sangat Baik;Murah;Sangat Baik;Baik;Terjangkau;Ya
+Baik;Terjangkau;Cukup;Sangat Baik;Jauh;Ya
+Baik;Terjangkau;Cukup;Cukup;Dekat;Ya
+Sangat Baik;Murah;Sangat Baik;Sangat Baik;Terjangkau;Ya
+Cukup;Terjangkau;Cukup;Cukup;Terjangkau;Tidak
