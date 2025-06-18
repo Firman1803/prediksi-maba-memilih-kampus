@@ -1,49 +1,29 @@
 import streamlit as st
+import pickle
+import numpy as np
 
-# Judul aplikasi
-st.title("Prediksi Pilihan Kampus")
+# Load model dan encoder
+with open('model.pkl', 'rb') as f:
+    model, le_akreditasi = pickle.load(f)
+
+st.title("Prediksi Pemilihan Perguruan Tinggi")
+
+st.markdown("Masukkan kriteria pilihan kamu, dan aplikasi akan memprediksi apakah kamu akan memilih PTN ini atau tidak.")
 
 # Input pengguna
-nilai = st.number_input("Masukkan nilai rata-rata (0-100)", min_value=0.0, max_value=100.0, step=0.1)
-jurusan = st.selectbox("Pilih jurusan yang diminati", ["Teknik Informatika", "Kedokteran", "Manajemen", "Hukum", "Sastra"])
+akreditasi = st.selectbox("Akreditasi", ['A', 'B', 'C'])
+uang_kuliah = st.number_input("Uang Kuliah (Rp)", min_value=0)
+fasilitas = st.slider("Fasilitas (1-5)", 1, 5, 3)
+pelayanan = st.slider("Pelayanan (1-5)", 1, 5, 3)
+lokasi = st.slider("Lokasi (1-5)", 1, 5, 3)
 
-# Fungsi prediksi sederhana
-def prediksi_kampus(nilai, jurusan):
-    if jurusan == "Teknik Informatika":
-        if nilai >= 85:
-            return "Institut Teknologi Bandung (ITB)"
-        elif nilai >= 75:
-            return "Universitas Gadjah Mada (UGM)"
-        else:
-            return "Universitas Negeri lokal"
+# Proses prediksi
+if st.button("Prediksi"):
+    akreditasi_encoded = le_akreditasi.transform([akreditasi])[0]
+    data = np.array([[akreditasi_encoded, uang_kuliah, fasilitas, pelayanan, lokasi]])
+    prediction = model.predict(data)
 
-    elif jurusan == "Kedokteran":
-        if nilai >= 90:
-            return "Universitas Indonesia (UI)"
-        elif nilai >= 80:
-            return "Universitas Airlangga"
-        else:
-            return "Sekolah Tinggi Kesehatan Daerah"
-
-    elif jurusan == "Manajemen":
-        if nilai >= 80:
-            return "Universitas Gadjah Mada (UGM)"
-        else:
-            return "Universitas Swasta Terakreditasi A"
-
-    elif jurusan == "Hukum":
-        if nilai >= 78:
-            return "Universitas Indonesia (UI)"
-        else:
-            return "Universitas Islam Negeri (UIN)"
-
-    elif jurusan == "Sastra":
-        if nilai >= 70:
-            return "Universitas Diponegoro"
-        else:
-            return "Universitas Negeri Yogyakarta"
-
-# Tombol untuk prediksi
-if st.button("Prediksi Kampus"):
-    hasil = prediksi_kampus(nilai, jurusan)
-    st.success(f"Kampus yang direkomendasikan: {hasil}")
+    if prediction[0] == 1:
+        st.success("✅ Berdasarkan input kamu, kemungkinan kamu akan memilih PTN ini.")
+    else:
+        st.warning("❌ Berdasarkan input kamu, kemungkinan kamu *tidak akan memilih* PTN ini.")
