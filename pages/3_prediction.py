@@ -1,34 +1,41 @@
 import streamlit as st
 import pandas as pd
-import pickle
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 
-# Judul halaman
-st.title("🔮 Prediksi Calon Mahasiswa Memilih PTN")
+st.title("🔮 Prediksi Pilihan Mahasiswa")
 
-# Load model
-@st.cache_resource
-def load_model():
-    with open("model.pkl", "rb") as f:
-        return pickle.load(f)
+# Load dataset
+@st.cache_data
+def load_data():
+    df = pd.read_csv("dataset.csv", sep=";")
+    df.columns = ['Akreditasi', 'Uang_Kuliah', 'Fasilitas', 'Pelayanan', 'Lokasi', 'Pilih_PTN']
+    df['Pilih_PTN'] = df['Pilih_PTN'].map({'Ya': 1, 'Tidak': 0})
+    return df
 
-model = load_model()
+df = load_data()
 
-# Form input prediksi
-st.subheader("Masukkan Data Calon Mahasiswa")
+# Preprocessing dan pelatihan model langsung
+X = df[['Akreditasi', 'Uang_Kuliah', 'Fasilitas', 'Pelayanan', 'Lokasi']]
+y = df['Pilih_PTN']
 
-akreditasi = st.slider("Akreditasi (1-3)", 1, 2, 3)
-uang_kuliah = st.number_input("Uang Kuliah (Rp)", min_value=3000000, value=7000000, step=1000000)
-fasilitas = st.slider("Fasilitas (1-3)", 1, 2, 3)
-pelayanan = st.slider("Pelayanan (1-10)", 1, 2, 3)
-lokasi = st.slider("Lokasi (1-10)", 1, 2, 3)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
 
-# Prediksi saat tombol ditekan
-if st.button("🔍 Prediksi Sekarang"):
+# UI Input untuk Prediksi
+st.subheader("🧪 Masukkan Data Mahasiswa")
+
+akreditasi = st.slider("Akreditasi Kampus", 1, 10, 7)
+uang_kuliah = st.number_input("Uang Kuliah", min_value=0, value=5000000)
+fasilitas = st.slider("Fasilitas Kampus", 1, 10, 6)
+pelayanan = st.slider("Pelayanan Akademik", 1, 10, 7)
+lokasi = st.slider("Lokasi Kampus", 1, 10, 8)
+
+# Prediksi
+if st.button("Prediksi Pilihan Mahasiswa"):
     input_data = pd.DataFrame([[akreditasi, uang_kuliah, fasilitas, pelayanan, lokasi]],
                               columns=['Akreditasi', 'Uang_Kuliah', 'Fasilitas', 'Pelayanan', 'Lokasi'])
     prediction = model.predict(input_data)[0]
-
-    if prediction == 1:
-        st.success("✅ Calon mahasiswa kemungkinan besar akan memilih PTN ini.")
-    else:
-        st.warning("❌ Calon mahasiswa kemungkinan tidak akan memilih PTN ini.")
+    hasil = "✅ Memilih Kampus Ini" if prediction == 1 else "❌ Tidak Memilih Kampus Ini"
+    st.success(f"Hasil Prediksi: {hasil}")
